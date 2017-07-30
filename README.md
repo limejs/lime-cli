@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 lime-cli
 ======
 A Simple CLI for scaffolding any frontend projects
