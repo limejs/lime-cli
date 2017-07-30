@@ -13,10 +13,7 @@ A Simple CLI for scaffolding any project templates
 npm install lime-cli -g
 ```
 
-* To find your favourite scaffoding template, official templates is here:
-
-  * felib-template
-  * xxxx
+* To find your favourite scaffoding template or github repo, eg. felib-template 
 
 * Install the template with lime-cli
 ``` bash
@@ -40,6 +37,8 @@ And now, enjoy your project!
 * vue-template, a vue.js 2.0 template
 * vue-component-template, a startup template for a `Vue Components Library` project
 * lime-cms-template, generate a website driven by lime-cms
+
+when you create project by official templates, you need not use github account name, for example, just use felib-template. But if you use custom templates on github, you need supply your account and repo, like `cuiyongjian/felib-template`
 
 ## License
 MIT
