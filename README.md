@@ -1,6 +1,6 @@
 lime-cli
 ======
-A Simple CLI for scaffolding any frontend projects
+A Simple CLI for scaffolding any project templates
 
 ## Feature
 * Adapt to all github repo template
@@ -42,8 +42,4 @@ And now, enjoy your project!
 * lime-cms-template, generate a website driven by lime-cms
 
 ## License
-=======
-# lime-cli
-
-a cli tool for create project template
->>>>>>> c4b7ea6c8fbe69b7e5023b99e7ca29323ecb5683
+MIT
