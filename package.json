@@ -1,0 +1,27 @@
+{
+  "name": "lime-cli",
+  "version": "1.0.0",
+  "description": "Simple CLI for scaffolding any frontend projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limefe/lime-cli.git"
+  },
+  "keywords": [
+    "lime",
+    "cli",
+    "frontend"
+  ],
+  "author": "sheldoncui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/limefe/lime-cli/issues"
+  },
+  "homepage": "https://github.com/limefe/lime-cli#readme",
+  "dependencies": {
+    "download-git-repo": "^1.0.1"
+  }
+}
