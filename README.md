@@ -34,8 +34,8 @@ And now, enjoy your project!
 
 ## Official Templates
 * html-template, a simple html5 html template
-* html5app-template, a html5 template with webpack bundle
-* felib-template, a front end library template
+* [html5app-template](https://github.com/cuiyongjian/html5app-template), a html5 template with webpack bundle
+* [felib-template](https://github.com/cuiyongjian/felib-template), a front end library template
 * node-cmd-template, a node.js commandline programe template
 * vue-template, a vue.js 2.0 template
 * vue-component-template, a startup template for a `Vue Components Library` project
