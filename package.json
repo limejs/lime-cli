@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple CLI for scaffolding any frontend projects",
   "main": "index.js",
+  "bin": {
+    "lime": "./bin/lime"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +25,12 @@
   },
   "homepage": "https://github.com/limefe/lime-cli#readme",
   "dependencies": {
-    "download-git-repo": "^1.0.1"
+    "chalk": "^2.1.0",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.11.0",
+    "download-git-repo": "^1.0.1",
+    "shelljs": "^0.7.8",
+    "yargs": "^9.0.1"
   }
 }
