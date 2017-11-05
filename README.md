@@ -50,5 +50,7 @@ And now, enjoy your project!
 ## Thanks
 This project is inspired by zan-tool, thanks for youzan Inc.
 
+when you create project by official templates, you need not use github account name, for example, just use felib-template. But if you use custom templates on github, you need supply your account and repo, like `cuiyongjian/felib-template`
+
 ## License
 MIT
