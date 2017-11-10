@@ -12,17 +12,17 @@ commander.command('add').description('add new template')
 
 commander.command('list').description('list all the template')
 .alias('l').action(() => {
-  require('./lib/list')
+  require('./lib/list')()
 })
 
 commander.command('init').description('init a new project')
 .alias('i').action(()=>{
-  require('./lib/init')
+  require('./lib/init')()
 })
 
 commander.command('delete').description('delete a template')
 .alias('d').action(()=>{
-  require('./lib/delete')
+  require('./lib/delete')()
 })
 
 commander.parse(process.argv)
