@@ -6,7 +6,6 @@ commander.usage('<command>')
 
 commander.command('add').description('add new template')
 .alias('a').action(() => {
-  console.log('hi')
   require('./lib/add')()
 })
 
@@ -15,14 +14,16 @@ commander.command('list').description('list all the template')
   require('./lib/list')()
 })
 
-commander.command('init').description('init a new project')
-.alias('i').action(()=>{
-  require('./lib/init')()
+commander.command('init [tplName]').description('init a new project')
+.alias('i').action((tplName)=>{
+  require('./lib/init')(tplName)
 })
 
-commander.command('delete').description('delete a template')
-.alias('d').action(()=>{
-  require('./lib/delete')()
+commander.command('delete [tplNames...]').description('delete a template')
+.alias('d').action((tplNames)=>{
+  // console.log('tplNames: ', tplNames)
+  // tplNames.length < 1 && require('./lib/delete')()
+  require('./lib/delete')(tplNames)
 })
 
 commander.parse(process.argv)

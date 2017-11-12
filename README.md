@@ -15,11 +15,13 @@ npm install lime-cli -g
 
 * To find your favourite scaffoding template, official templates is here:
 
-  * felib-template
-  * nodelib-template
-  * nodebin-template
-  * html5app-template
-  * vue-template
+
+  * [html-template](https://github.com/cuiyongjian/html-template)
+  * [html5app-template](https://github.com/cuiyongjian/html5app-template)
+  * [felib-template](https://github.com/cuiyongjian/felib-template)
+  * [nodebin-template](https://github.com/cuiyongjian/nodebin-template)
+  * [nodelib-template](https://github.com/cuiyongjian/nodelib-template)
+  * [vue-template](https://github.com/cuiyongjian/vue-template)
 
 * Install the template with lime-cli
 ``` bash
@@ -43,7 +45,7 @@ And now, enjoy your project!
 * [html5app-template](https://github.com/cuiyongjian/html5app-template), a html5 template with webpack bundle
 * [felib-template](https://github.com/cuiyongjian/felib-template), a front end library template
 * [nodebin-template](https://github.com/cuiyongjian/nodebin-template), a node.js commandline programme template
-* vue-template, a vue.js 2.0 template
+* [vue-template](https://github.com/cuiyongjian/vue-template), a vue.js 2.0 template
 * vue-component-template, a startup template for a `Vue Components Library` project
 * limelog-template, generate a blog website driven by limelog
 

@@ -1,1 +1,20 @@
-{"tpl":{"test":{"url":"you","branch":"a"},"tt":{"url":"ttt","branch":"tttt"},"aaa":{"url":"aaaa","branch":"aaaa"},"tr":{"url":"trr","branch":"trrr"},"aw":{"url":"aww","branch":"awww"},"ok":{"url":"okk","branch":"okkk"},"libfe":{"url":"https://github.com/cuiyongjian/felib-template","branch":"master"}}}
+{
+  "tpl": {
+    "felib": {
+      "url": "https://github.com/cuiyongjian/felib-template",
+      "branch": "master"
+    },
+    "html5app": {
+      "url": "https://github.com/cuiyongjian/html5app-template",
+      "branch": "master"
+    },
+    "nodebin": {
+      "url": "https://github.com/cuiyongjian/nodebin-template",
+      "branch": "master"
+    },
+    "nodelib": {
+      "url": "https://github.com/cuiyongjian/nodelib-template",
+      "branch": "master"
+    }
+  }
+}
