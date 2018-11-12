@@ -1,33 +1,26 @@
-var commander = require('commander')
 
-commander.version(require('./package.json'))
+const commander = require('./core')
+const fs = require('fs')
+const path = require('path')
 
-commander.usage('<command>')
+// 注册官方子命令
+commander.registerGlobalCommand(require('./cmds/global'))
+commander.registerCommand(require('./cmds/init'))
+commander.registerCommand(require('./cmds/doc'))
+commander.registerCommand(require('./cmds/config'))
 
-commander.command('add').description('add new template')
-.alias('a').action(() => {
-  require('./lib/add')()
-})
-
-commander.command('list').description('list all the template')
-.alias('l').action(() => {
-  require('./lib/list')()
-})
-
-commander.command('init [tplName]').description('init a new project')
-.alias('i').action((tplName)=>{
-  require('./lib/init')(tplName)
-})
-
-commander.command('delete [tplNames...]').description('delete a template')
-.alias('d').action((tplNames)=>{
-  // console.log('tplNames: ', tplNames)
-  // tplNames.length < 1 && require('./lib/delete')()
-  require('./lib/delete')(tplNames)
-})
-
-commander.parse(process.argv)
-
-if (process.argv.length <= 2) {
-  commander.help()
+// 注册用户自定义子命令
+const cmdPath = path.resolve(process.cwd(), './lime-cmd')
+try {
+  const files = fs.readdirSync(cmdPath)
+  files.forEach(file => {
+    // const state = fs.statSync(path.resolve(cmdPath, file))
+    commander.registerCommand(require(path.resolve(cmdPath, file)))
+  })
 }
+catch(err) {
+  console.log(err)
+}
+
+// 启动 commander
+commander.start()
