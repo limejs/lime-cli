@@ -102,7 +102,7 @@ templates_dir|远程模板的缓存目录|~/.lime-cli|"~/.lime"
 子命令js代码中只需导出一个 commander 所需的模块即可，对应字段的含义也可以去参考 `commander` 的官方文档。在这里我们简单介绍一下，足够你编写自己所需的命令功能。
 
 ```js
-const rimrf = require('rimrf)
+const rimrf = require('rimrf')
 
 module.exports = {
     command: "drop",
