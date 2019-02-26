@@ -1,5 +1,5 @@
 {
-  "name": "lime-cli",
+  "name": "@limejs/cli",
   "version": "1.0.0",
   "description": "Simple CLI for scaffolding any frontend projects",
   "main": "index.js",
