@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/lime-cli.svg) ![npm](https://img.shields.io/npm/dw/lime-cli.svg) ![NPM](https://img.shields.io/npm/l/lime-cli.svg)
+![npm](https://img.shields.io/npm/v/lime-cli.svg) ![npm](https://img.shields.io/npm/dw/lime-cli.svg?label=lime-cli) ![npm](https://img.shields.io/npm/dw/@limejs/cli.svg?label=%40limejs%2Fcli) ![NPM](https://img.shields.io/npm/l/lime-cli.svg)
 
 
 lime-cli
