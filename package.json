@@ -1,6 +1,6 @@
 {
   "name": "lime-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple CLI for scaffolding lime projects",
   "main": "index.js",
   "bin": {
