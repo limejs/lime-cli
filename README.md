@@ -1,3 +1,6 @@
+![npm](https://img.shields.io/npm/v/lime-cli.svg) ![npm](https://img.shields.io/npm/dw/lime-cli.svg) ![NPM](https://img.shields.io/npm/l/lime-cli.svg)
+
+
 lime-cli
 ======
 
