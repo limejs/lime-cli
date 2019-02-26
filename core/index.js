@@ -1,5 +1,6 @@
 const commander = require('commander')
 const chalk = require('chalk')
+const util = require('../lib/util')
 let globalCmdOptions = null // 用于保存全局options配置
 
 module.exports = {
@@ -14,6 +15,7 @@ function registerGlobalCommand(options) {
   globalCmdOptions = options
   let cmd = commander.version(options.version)
   cmd.usage(options.usage)
+  cmd.description(options.description || '')
   // cmd.description(options.description)
   cmd.on('--help', options.help || (() => {}))
   _iterateOption(options.options, cmd)
@@ -23,7 +25,7 @@ function registerGlobalCommand(options) {
 function registerCommand(options) {
   // 必填: command, action
   if (!options || !options.command || ! options.action) {
-    throw new Error('options缺少或缺失必填的 command, action 字段')
+    throw new Error(`options缺少或缺失必填的 command(${options.command}), action${options.action} 字段`)
   }
   let cmd = commander.command(options.command)
   cmd.usage(options.usage)
@@ -38,10 +40,11 @@ function registerCommand(options) {
 function start() {
   // 监听子命令输入错误
   commander
-    .command('*')
-    .action((commandName) => {
-        console.log(chalk.red(`命令 ${commandName} 不存在！`));
-    });
+    .on('command:*', (commandName) => {
+      util.printError(`命令 ${commander.args.join(' ')} 不存在！请通过 --help 查看可用的命令`)
+      commander.outputHelp()
+      process.exit(1);
+    })
   commander.parse(process.argv)
   // 若有全局cmd配置，则在parse后需执行一下全局的action （因为全局action只能等parse之后来手工执行）
   if (globalCmdOptions && globalCmdOptions.action) {
