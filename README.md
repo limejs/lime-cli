@@ -36,6 +36,17 @@ lime plugin # 管理 lime 项目插件 *尚未支持*
 
 ### 初始化项目
 
+目前官方提供的项目样板有:
+
+* [BASIC] 基于 [LIME.JS](//github.com/limejs/lime) 的项目基础项目模板，包含可选的基础 MVC 模块 [适合简单 demo]
+* [REST] 一个完善的 API 开发骨架，在基础模板之上，增强了 REST API 项目开发的能力，去除了不必要的视图层。[适合 restful api 项目]
+* [SPA] 经典的基于 [Vue.js](https://cn.vuejs.org/) 的前后端分离的单页应用；分离开发，聚合部署 [适合内网管理端或没有SEO要求的外网产品]
+* [SSR] 基于 [Vue.js](https://cn.vuejs.org/) + [SSR](https://ssr.vuejs.org) 实现的完善的项目模板，支持开发环境热替换和生产环境的编译、部署 [适合对性能和SEO有要求的外网产品]
+
+初始化一个项目只需使用 `lime init <project-foler>`
+
+例如:
+
 ```bash
 lime init my-project
 ```
@@ -61,9 +72,11 @@ lime-cli 自身支持如下的配置项:
 self_cmd_dir|放置自定义子命令代码的目录|lime-cmd|"utils/mycmd"
 templates_dir|远程模板的缓存目录|~/.lime-cli|"~/.lime"
 
+你可以通过 `lime config list` 查看本地所有配置内容。 同时支持 `get <key>, set <key>` 的方式获取和设置单个 key。
+
 ### 制作私有模板
 
-通常，你可能会形成自己的项目样板。借助 lime-cli，你可以使用自己的样板来初始化项目。步骤如下:
+通常，你的团队可能会形成自己的项目样板。借助 lime-cli，你可以使用自己的样板来初始化项目。步骤如下:
 
 1. 编写项目模板([教程](./TEMPLATE.md))，并托管到 github/bucket 等支持 git 协议的代码仓库平台
 2. 通过 `lime tpl add <name> <url>` 命令将自己的私有模板添加到 lime-cli 的模板列表中
@@ -76,7 +89,7 @@ templates_dir|远程模板的缓存目录|~/.lime-cli|"~/.lime"
 
 ## 自定义子命令
 
-lime-cli 支持编写自己的子命令，如实现一个 `lime drop` 命令。编写方式非常简单。现在假设你要编写一个 drop 子命令用来删除特定的页面文件，我们以此为例来说明步骤:
+随着项目复杂度增加，可能需要编写一些命令来提高工作效率。lime-cli 支持编写自己的子命令，如实现一个 `lime drop` 命令。编写方式非常简单。现在假设你要编写一个 drop 子命令用来删除特定的页面文件，我们以此为例来说明步骤:
 
 * 在当前项目根目录下创建一个目录 `lime-cmd`
 * 在 lime-cmd 目录下创建一个子目录叫做 `drop`
