@@ -1,7 +1,7 @@
 {
   "name": "@limejs/cli",
   "version": "1.0.0",
-  "description": "Simple CLI for scaffolding any frontend projects",
+  "description": "Simple CLI for scaffolding lime projects",
   "main": "index.js",
   "bin": {
     "lime": "./bin/lime"
@@ -23,9 +23,9 @@
   "author": "sheldoncui",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/limej/lime-cli/issues"
+    "url": "https://github.com/limejs/lime-cli/issues"
   },
-  "homepage": "https://github.com/limej/lime-cli#readme",
+  "homepage": "https://github.com/limejs/lime-cli#readme",
   "dependencies": {
     "async": "^2.6.2",
     "axios": "^0.18.0",

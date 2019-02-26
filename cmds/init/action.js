@@ -57,7 +57,9 @@ module.exports = async function(folderName, cmd) {
       if (!tplLists || !Array.isArray(tplLists)) throw new Error('空的模板列表') // 模板配置解析失败
     }
     catch(err) {
-      logger.fatal(err)
+      if(!(err.message.indexOf('user-templates.json') > -1)) {
+        logger.fatal(err)
+      }
       // 模板列表读不到或解析失败
       tplLists = await updateTemplates()
       if (!fs.existsSync(limeUserDir)) fs.mkdirSync(limeUserDir, {

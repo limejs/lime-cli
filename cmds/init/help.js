@@ -1,11 +1,9 @@
 module.exports = () => {
-  console.log('\n\n  Examples:')
+  console.log('\nExamples:')
   console.log()
-  console.log(('    # create a new project based lime framework'))
-  console.log('    $ vue init basic my-project-name')
+  console.log(('  # 创建项目'))
+  console.log('  $ lime init my-project')
   console.log()
-  console.log(('    # create a new project in current directory'))
-  console.log('    $ vue init basic .')
-  console.log('    $ vue init basic')
-  console.log()
+  console.log(('  # 创建在当前目录'))
+  console.log('  $ lime init .')
 }
