@@ -20,6 +20,13 @@
     "cli",
     "frontend"
   ],
+  "files": [
+    "index.js",
+    "lib",
+    "core",
+    "cmds",
+    "bin"
+  ],
   "author": "sheldoncui",
   "license": "MIT",
   "bugs": {
