@@ -86,10 +86,10 @@ module.exports = async function(folderName, cmd) {
     let answers = await inquirer.prompt(prompt)
 
     if (!tplLists.some(tpl => tpl.name === answers.templateName)) {
-      util.printError(`模板 { ${answers.templateName} } 不存在`)
+      logger.fatal(`模板 { ${answers.templateName} } 不存在`)
       process.exit(1)
     }
-    
+
     // folderName: 项目创建位置的目录文件夹名称，projectDir 项目输出位置的绝对路径； templateName: 用户选定或输入的模板名；inPlace是否是在当前所在目录。
     // 生成项目
     await generate(folderName, projectDir, answers.templateName)
