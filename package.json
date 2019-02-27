@@ -1,5 +1,5 @@
 {
-  "name": "@limejs/cli",
+  "name": "lime-cli",
   "version": "1.0.1",
   "description": "Simple CLI for scaffolding any frontend projects",
   "main": "index.js",
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/limej/lime-cli#readme",
   "dependencies": {
     "async": "^2.6.2",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0-beta.1",
     "boxen": "^3.0.0",
     "chalk": "^2.4.2",
     "cli-table": "^0.3.1",
