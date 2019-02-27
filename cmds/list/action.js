@@ -1,5 +1,5 @@
 const logger = require('../../lib/logger')
-const request = require('axios')
+let request = require('request')
 const chalk = require('chalk')
 const ora = require('ora')
 const fs = require('fs')
@@ -8,6 +8,8 @@ const path = require('path')
 const readMeta = require('read-metadata')
 const { promisify } = require('util')
 const utils = require('../../lib/util')
+const nodeUtil = require('util')
+request = nodeUtil.promisify(request)
 
 const limeUserDir = path.join(home, '.lime-cli')
 
@@ -27,14 +29,14 @@ module.exports = async function getLists(isCli) {
   try {
     const spinner = ora('正在查询最新官方模板, 请稍等...\n\n')
     spinner.start()
-    let res = await request({
+    let {res, body} = await request({
       url: 'https://api.github.com/users/limejs/repos',
       headers: {
         'User-Agent': 'lime-cli'
       }
     })
     spinner.stop()
-    let repos = res.data
+    let repos = JSON.parse(body)
     if (Array.isArray(repos)) {
       // 查询官方模板
       let result = repos.filter(repo => repo.name.startsWith('lime-template')).map(repo => {
@@ -81,6 +83,7 @@ module.exports = async function getLists(isCli) {
       fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(result, null, 2))
       return result.concat(userTplLists)
     } else {
+      console.log(repos)
       console.error(repos.message)
     }
   }
