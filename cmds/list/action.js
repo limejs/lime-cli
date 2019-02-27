@@ -10,6 +10,7 @@ const { promisify } = require('util')
 const utils = require('../../lib/util')
 const nodeUtil = require('util')
 request = nodeUtil.promisify(request)
+const config = require('../../lib/conf-store')
 
 const limeUserDir = path.join(home, '.lime-cli')
 
@@ -29,8 +30,10 @@ module.exports = async function getLists(isCli) {
   try {
     const spinner = ora('正在查询最新官方模板, 请稍等...\n\n')
     spinner.start()
+    // 获取官方模板api地址 (可以通过 lime config set list_url 修改为内网仓库账号，从而检索出上面的 lime-template- 的模板项目)
+    const apiUrl = config.get('list_url') || 'https://api.github.com/users/limejs/repos'
     let {res, body} = await request({
-      url: 'https://api.github.com/users/limejs/repos',
+      url: apiUrl,
       headers: {
         'User-Agent': 'lime-cli'
       }
@@ -56,16 +59,22 @@ module.exports = async function getLists(isCli) {
       catch(err) {
       }
       if (isCli) {
-        const width = utils.getWidth(result.map(item=>{return {name:item.name.replace(/lime-template-/, '')}}).concat(userTplLists).map(item => item.name))
-        console.log('  当前可用官方模板:')
-        console.log()
-        result.forEach(repo => {
-          // CLI 方式调用，则打印可用模板
-          console.log(
-            '  ' + chalk.yellow('★') +
-            '  ' + chalk.blue(utils.padRight(repo.name.replace(/lime-template-/, ''), width, ' ')) +
-            (repo.desc ? ` - ${repo.desc}` : ''))
-        })
+        if (result && result.length) {
+          const width = utils.getWidth(result.map(item=>{return {name:item.name.replace(/lime-template-/, '')}}).concat(userTplLists).map(item => item.name))
+          console.log('  当前可用官方模板:')
+          console.log()
+          result.forEach(repo => {
+            // CLI 方式调用，则打印可用模板
+            console.log(
+              '  ' + chalk.yellow('★') +
+              '  ' + chalk.blue(utils.padRight(repo.name.replace(/lime-template-/, ''), width, ' ')) +
+              (repo.desc ? ` - ${repo.desc}` : ''))
+          })
+        }
+        else {
+          console.log('  当前可用官方模板: 无')
+          console.log('  官方模板来源地址: ' + apiUrl)
+        }
         if (userTplLists && Array.isArray(userTplLists) && userTplLists.length) {
           console.log('\n\n  当前可用私有模板:')
           console.log()
