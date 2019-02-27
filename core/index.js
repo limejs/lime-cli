@@ -1,6 +1,7 @@
 const commander = require('commander')
 const chalk = require('chalk')
 const util = require('../lib/util')
+const logger = require('../lib/logger')
 let globalCmdOptions = null // 用于保存全局options配置
 
 module.exports = {
@@ -33,16 +34,19 @@ function registerCommand(options) {
   cmd.on('--help', options.help || (() => {}))
   // 遍历 options
   _iterateOption(options.options, cmd)
-  cmd.action(options.action)
+  cmd.action((...args) => {
+    options.action(...args)
+  })
 }
 
 // 启动 commander 
 function start() {
-  // 监听子命令输入错误
+  // 监听子命令输入错误（这个会同步执行，所以捕获之后走不到下面的globalAction
   commander
     .on('command:*', (commandName) => {
-      util.printError(`命令 ${commander.args.join(' ')} 不存在！请通过 --help 查看可用的命令`)
-      commander.outputHelp()
+      logger.fatal(`命令 ${commander.args.join(' ')} 不存在！`)
+      commander.outputHelp() // 触发打印帮助信息
+      // util.printLogo(path.resolve(__dirname, 'logo')) // 再打印logo
       process.exit(1);
     })
   commander.parse(process.argv)

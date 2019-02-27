@@ -39,7 +39,6 @@ module.exports = async function generate(folderName, projectDir, templateName) {
 
 
   // 用 finalTemplatePath 模板 生成项目
-
   let metaInfo = utils.getMetaData(finalTemplatePath) // 从模板文件夹里拿出meta json信息
   // 设置 meta.prompt提问的default（因为有些信息 模板编写者撰写meta.js时是不知道的）
   utils.setDefault(metaInfo, 'name', folderName)
@@ -50,7 +49,13 @@ module.exports = async function generate(folderName, projectDir, templateName) {
 
   // 
   // 用 metalsmith 生成静态文件
-  const metalsmith = new Metalsmith(path.join(finalTemplatePath, 'template'))
+  const tplFilesPath = path.join(finalTemplatePath, 'template')
+  if (!fs.existsSync(tplFilesPath)) {
+    console.log()
+    logger.fatal('模板缺少必须的 template 文件夹，请检查')
+    return
+  }
+  const metalsmith = new Metalsmith(tplFilesPath)
   // 把几个变量放到 metalsmith全局meta (所有模板可用)
   const data = Object.assign(metalsmith.metadata(), {
     destDirName: folderName,
@@ -85,19 +90,26 @@ module.exports = async function generate(folderName, projectDir, templateName) {
       // 编译完成的回调
       if (typeof metaInfo.complete === 'function') {
         const helpers = { chalk, logger, files }
+        console.log()
         metaInfo.complete(data, helpers)
+        console.log()
       } else {
-        logger(metaInfo.completeMessage, data)
+        console.log()
+        logger.success(metaInfo.completeMessage, data)
+        console.log()
       }
       // cli 内部打印成功消息
       let msg = `
         ✔ 项目初始化成功
 
         请按照下面的步骤进行操作：
-            1. cd ${folderName}
-            2. npm install 安装项目依赖
-            3. npm run dev 开启后端服务
         `;
+        !data.inPlace && (msg += `
+          > cd ${folderName}`)
+        msg +=`
+          > npm install 安装项目依赖
+          > npm run dev 开启后端服务
+        `
         console.log(boxen(msg, {
             padding: {
                 left: 0,
