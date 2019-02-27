@@ -83,8 +83,7 @@ module.exports = async function getLists(isCli) {
       fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(result, null, 2))
       return result.concat(userTplLists)
     } else {
-      console.log(repos)
-      console.error(repos.message)
+      logger.fatal(repos.message)
     }
   }
   catch(err) {
