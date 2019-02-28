@@ -28,16 +28,14 @@ module.exports = async function (subcmd, name, url) {
       userTplLists.splice(index, 1, {
         name: name,
         url: url,
-        desc: name,
-        fullName: name
+        desc: name
       })
     }
     else {
       userTplLists.push({
         name: name,
         url: url,
-        desc: name,
-        fullName: name
+        desc: name
       })
     }
     fs.writeFileSync(userTemplatesPaths, JSON.stringify(userTplLists, null, 2))

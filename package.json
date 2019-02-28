@@ -45,6 +45,7 @@
     "consolidate": "^0.15.1",
     "debug": "^4.1.0",
     "download-git-repo": "^1.0.1",
+    "git-url-parse": "^11.1.2",
     "handlebars": "^4.1.0",
     "inquirer": "^6.2.2",
     "metalsmith": "^2.3.0",

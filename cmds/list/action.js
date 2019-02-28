@@ -47,7 +47,6 @@ module.exports = async function getLists(isCli) {
       officeTplLists = repos.filter(repo => repo.name.startsWith('lime-template')).map(repo => {
         return {
           name: repo.name,
-          fullName: repo.full_name,
           desc: repo.description,
           url: repo.html_url
         }
@@ -81,16 +80,16 @@ module.exports = async function getLists(isCli) {
     // 生成 4个 官方兜底模板
     officeTplLists = ([
       {
-        name: '基础', url: 'https://github.com/limejs/lime-template-basic', fullName: 'limejs/lime-template-basic', desc: 'lime mvc基础样板'
+        name: '基础', url: 'https://github.com/limejs/lime-template-basic', desc: 'lime mvc基础样板'
       },
       {
-        name: 'API', url: 'https://github.com/limejs/lime-template-api', fullName: 'limejs/lime-template-api', desc: 'lime rest api 样板'
+        name: 'API', url: 'https://github.com/limejs/lime-template-api', desc: 'lime rest api 样板'
       },
       {
-        name: 'SSR', url: 'https://github.com/limejs/lime-template-ssr', fullName: 'limejs/lime-template-ssr', desc: 'lime+vue+ssr 样板'
+        name: 'SSR', url: 'https://github.com/limejs/lime-template-ssr', desc: 'lime+vue+ssr 样板'
       },
       {
-        name: 'SPA', url: 'https://github.com/limejs/lime-template-spa', fullName: 'limejs/lime-template-spa', desc: 'lime+vue 样板'
+        name: 'SPA', url: 'https://github.com/limejs/lime-template-spa', desc: 'lime+vue 样板'
       }
     ])
   }

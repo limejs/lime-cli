@@ -28,14 +28,7 @@ module.exports = async function generate(folderName, projectDir, templateName) {
     }
   } else {
     // 远程模板逻辑
-    if (!templateName.indexOf('/') > -1) {
-      // 官方模板 (官方模板)
-      // const officialTemplate = 'limejs/' + templateName
-      finalTemplatePath = await download(templateName)
-    } else {
-      // 第三方模板
-      finalTemplatePath = await download(templateName)
-    }
+    finalTemplatePath = await download(templateName)
   }
 
 
