@@ -28,20 +28,20 @@ function registerCommand(options) {
   if (!options || !options.command || ! options.action) {
     throw new Error(`options缺少或缺失必填的 command(${options.command}), action${options.action} 字段`)
   }
-  let i = -1;
-  do{
-    // console.log((options.alias && options.alias.length >0 && i>=0)?options.alias[i] : options.command);
-    let cmd = commander.command((options.alias && options.alias.length >0 && i>=0)?options.alias[i] : options.command)
-    cmd.usage(options.usage)
-    cmd.description(options.description)
-    cmd.on('--help', options.help || (() => {}))
-    // 遍历 options
-    _iterateOption(options.options, cmd)
-    cmd.action((...args) => {
-      options.action(...args)
+  let cmd = commander.command(options.command)
+  if(options.alias && Array.isArray(options.alias)){
+    options.alias.forEach(function(_alias){
+      commander.alias(_alias);
     })
-    i++
-  }while(options.alias && options.alias.length >0 && i<options.alias.length)
+  }
+  cmd.usage(options.usage)
+  cmd.description(options.description)
+  cmd.on('--help', options.help || (() => {}))
+  // 遍历 options
+  _iterateOption(options.options, cmd)
+  cmd.action((...args) => {
+    options.action(...args)
+  })
 }
 
 // 启动 commander 
