@@ -27,6 +27,8 @@ process.on('exit', () => {
  * List repos.
  */
 module.exports = async function getLists(isCli) {
+  let officeTplLists = []
+
   try {
     const spinner = ora('正在查询最新官方模板, 请稍等...\n\n')
     spinner.start()
@@ -42,7 +44,7 @@ module.exports = async function getLists(isCli) {
     let repos = JSON.parse(body)
     if (Array.isArray(repos)) {
       // 查询官方模板
-      let result = repos.filter(repo => repo.name.startsWith('lime-template')).map(repo => {
+      officeTplLists = repos.filter(repo => repo.name.startsWith('lime-template')).map(repo => {
         return {
           name: repo.name,
           fullName: repo.full_name,
@@ -50,52 +52,59 @@ module.exports = async function getLists(isCli) {
           url: repo.html_url
         }
       })
-      // 查询私有模板
-      const userTplLists = []
-      try {
-        let userTemplatesPath = path.join(home, '.lime-cli/user-templates.json')
-        userTplLists = await promisify(readMeta)(userTemplatesPath)
-      }
-      catch(err) {
-      }
-      if (isCli) {
-        if (result && result.length) {
-          const width = utils.getWidth(result.map(item=>{return {name:item.name.replace(/lime-template-/, '')}}).concat(userTplLists).map(item => item.name))
-          console.log('  当前可用官方模板:')
-          console.log()
-          result.forEach(repo => {
-            // CLI 方式调用，则打印可用模板
-            console.log(
-              '  ' + chalk.yellow('★') +
-              '  ' + chalk.blue(utils.padRight(repo.name.replace(/lime-template-/, ''), width, ' ')) +
-              (repo.desc ? ` - ${repo.desc}` : ''))
-          })
-        }
-        else {
-          console.log('  当前可用官方模板: 无')
-          console.log('  官方模板来源地址: ' + apiUrl)
-        }
-        if (userTplLists && Array.isArray(userTplLists) && userTplLists.length) {
-          console.log('\n\n  当前可用私有模板:')
-          console.log()
-          userTplLists.forEach(repo => {
-            // CLI 方式调用，则打印可用模板
-            console.log(
-              '  ' + chalk.yellow('★') +
-              '  ' + chalk.blue(repo.name) +
-              (repo.desc ? ` - ${repo.desc}` : ''))
-          })
-        }
-      }
-      // 把查询到的官方模板列表写入到用户目录
-      if (!fs.existsSync(limeUserDir)) fs.mkdirSync(limeUserDir)
-      fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(result, null, 2))
-      return result.concat(userTplLists)
     } else {
       logger.fatal(repos.message)
     }
   }
   catch(err) {
     if (err) logger.fatal(err)
+  }
+
+  // 查询私有模板
+  let userTplLists = []
+  try {
+    let userTemplatesPath = path.join(home, '.lime-cli/user-templates.json')
+    userTplLists = await promisify(readMeta)(userTemplatesPath)
+  }
+  catch(err) {
+  }
+
+  // 把查询到的官方模板列表写入到用户目录
+  if (officeTplLists && officeTplLists.length) {
+    if (!fs.existsSync(limeUserDir)) fs.mkdirSync(limeUserDir)
+    fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(officeTplLists, null, 2))
+  }
+
+  if (isCli) {
+    if (officeTplLists && officeTplLists.length) {
+      const width = utils.getWidth(officeTplLists.map(item=>{return {name:item.name.replace(/lime-template-/, '')}}).concat(userTplLists).map(item => item.name))
+      console.log('  当前可用官方模板:')
+      console.log()
+      officeTplLists.forEach(repo => {
+        // CLI 方式调用，则打印可用模板
+        console.log(
+          '  ' + chalk.yellow('★') +
+          '  ' + chalk.blue(utils.padRight(repo.name.replace(/lime-template-/, ''), width, ' ')) +
+          (repo.desc ? ` - ${repo.desc}` : ''))
+      })
+    }
+    else {
+      console.log('  当前可用官方模板: 无')
+      console.log('  官方模板来源地址: ' + apiUrl)
+    }
+    if (userTplLists && Array.isArray(userTplLists) && userTplLists.length) {
+      console.log('\n\n  当前可用私有模板:')
+      console.log()
+      userTplLists.forEach(repo => {
+        // CLI 方式调用，则打印可用模板
+        console.log(
+          '  ' + chalk.yellow('★') +
+          '  ' + chalk.blue(repo.name) +
+          (repo.desc ? ` - ${repo.desc}` : ''))
+      })
+    }
+  }
+  else {
+    return officeTplLists.concat(userTplLists)
   }
 }

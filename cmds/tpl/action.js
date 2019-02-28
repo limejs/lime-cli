@@ -42,14 +42,7 @@ module.exports = async function (subcmd, name, url) {
     }
     fs.writeFileSync(userTemplatesPaths, JSON.stringify(userTplLists, null, 2))
     logger.success('模板添加成功')
-    // 打印所有模板
-    let table = new Table({
-      head: ['name', 'url']
-    });
-    userTplLists.forEach(tpl => {
-      table.push([tpl.name, tpl.url])
-    })
-    console.log(table.toString());
+    printAll(userTplLists)
   }
   if (subcmd === 'del') {
     if(!name) {
@@ -64,5 +57,22 @@ module.exports = async function (subcmd, name, url) {
     }
     fs.writeFileSync(userTemplatesPaths, JSON.stringify(userTplLists, null, 2))
     logger.success('模板删除成功')
+    printAll(userTplLists)
   }
+  if (subcmd === 'list') {
+    let userTplLists = await nodeUtil.promisify(readMeta)(userTemplatesPaths)
+    printAll(userTplLists)
+  }
+}
+
+
+function printAll(userTplLists) {
+  // 打印所有模板
+  let table = new Table({
+    head: ['name', 'url']
+  });
+  userTplLists.forEach(tpl => {
+    table.push([tpl.name, tpl.url])
+  })
+  console.log(table.toString());
 }
