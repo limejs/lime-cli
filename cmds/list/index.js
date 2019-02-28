@@ -2,6 +2,7 @@ const action = require('./action')
 
 module.exports = {
   command: 'list',
+  alias:['ls'],
   description: '列出所有可用的模板',
   action() {
     return action(true)
