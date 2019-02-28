@@ -141,4 +141,4 @@ module.exports = {
 lime-cli 有参考 vue-cli, zan-node, think-cli, rato 等项目，在此对这些开源项目表示感谢
 
 ## License
-MIT
+[MIT](./LICENSE)
