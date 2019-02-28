@@ -18,19 +18,20 @@ const boxen = require('boxen')
 module.exports = async function generate(folderName, projectDir, templateName) {
   // 初始化 templateName, 本地模板名(如./xxx/xxx)则转为绝对路径，远程模板名(basic或aaa/bbb这样的githubname)，则取下载下来并拿到绝对路径
   let finalTemplatePath = ''
-
   if (/^[./]|(^[a-zA-Z]:)/.test(templateName)) {
     // 本地模板(C:/xx 或 /usr/local/xx)。 相对路径转为绝对路径
     finalTemplatePath = path.isAbsolute(templateName) ? templateName : path.normalize(path.join(process.cwd(), templateName))
     if (!fs.existsSync(finalTemplatePath)) {
+      console.log()
       logger.fatal('模板%s不存在', finalTemplatePath)
+      process.exit(1)
     }
   } else {
     // 远程模板逻辑
     if (!templateName.indexOf('/') > -1) {
-      // 官方模板
-      const officialTemplate = 'limejs/' + templateName
-      finalTemplatePath = await download(officialTemplate)
+      // 官方模板 (官方模板)
+      // const officialTemplate = 'limejs/' + templateName
+      finalTemplatePath = await download(templateName)
     } else {
       // 第三方模板
       finalTemplatePath = await download(templateName)

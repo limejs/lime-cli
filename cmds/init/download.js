@@ -25,11 +25,16 @@ async function downloadTpl(templateName) {
   if (fs.existsSync(tmpTpl)) rm(tmpTpl)
   try {
     let pdownload = utils.promisify(download)
-    await pdownload(templateName, tmpTpl)
-    spinner.stop()
+    await pdownload(templateName, tmpTpl, {
+      clone: false
+    })
     return tmpTpl
   }
   catch(err) {
-    logger.fatal('远程模板下载失败 ' + templateName + ': ' + err.message.trim())
+    console.log()
+    console.log()
+    logger.fatal('模板下载失败 ' + templateName + ' 原因:' + err.message)
   }
+  spinner.stop()
+  process.exit(1)
 }

@@ -29,11 +29,11 @@ process.on('exit', () => {
 module.exports = async function getLists(isCli) {
   let officeTplLists = []
 
+  const apiUrl = config.get('list_url') || 'https://api.github.com/users/limejs/repos'
+  const spinner = ora('正在查询最新官方模板, 请稍等...\n\n')
   try {
-    const spinner = ora('正在查询最新官方模板, 请稍等...\n\n')
     spinner.start()
     // 获取官方模板api地址 (可以通过 lime config set list_url 修改为内网仓库账号，从而检索出上面的 lime-template- 的模板项目)
-    const apiUrl = config.get('list_url') || 'https://api.github.com/users/limejs/repos'
     let {res, body} = await request({
       url: apiUrl,
       headers: {
@@ -57,6 +57,7 @@ module.exports = async function getLists(isCli) {
     }
   }
   catch(err) {
+    spinner.stop()
     if (err) logger.fatal(err)
   }
 
@@ -67,18 +68,40 @@ module.exports = async function getLists(isCli) {
     userTplLists = await promisify(readMeta)(userTemplatesPath)
   }
   catch(err) {
+    if (!err.code === 'ENOENT') {
+      logger.fatal('私有模板读取出错', err)
+    }
   }
+  
 
   // 把查询到的官方模板列表写入到用户目录
-  if (officeTplLists && officeTplLists.length) {
-    if (!fs.existsSync(limeUserDir)) fs.mkdirSync(limeUserDir)
-    fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(officeTplLists, null, 2))
+  let isOffline = false
+  if (!officeTplLists || officeTplLists.length < 1) {
+    isOffline = true // 可能是网络不好
+    // 生成 4个 官方兜底模板
+    officeTplLists = ([
+      {
+        name: '基础', url: 'https://github.com/limejs/lime-template-basic', fullName: 'limejs/lime-template-basic', desc: 'lime mvc基础样板'
+      },
+      {
+        name: 'API', url: 'https://github.com/limejs/lime-template-api', fullName: 'limejs/lime-template-api', desc: 'lime rest api 样板'
+      },
+      {
+        name: 'SSR', url: 'https://github.com/limejs/lime-template-ssr', fullName: 'limejs/lime-template-ssr', desc: 'lime+vue+ssr 样板'
+      },
+      {
+        name: 'SPA', url: 'https://github.com/limejs/lime-template-spa', fullName: 'limejs/lime-template-spa', desc: 'lime+vue 样板'
+      }
+    ])
   }
+
+  if (!fs.existsSync(limeUserDir)) fs.mkdirSync(limeUserDir)
+  fs.writeFileSync(path.join(limeUserDir, 'templates.json'), JSON.stringify(officeTplLists, null, 2))
 
   if (isCli) {
     if (officeTplLists && officeTplLists.length) {
       const width = utils.getWidth(officeTplLists.map(item=>{return {name:item.name.replace(/lime-template-/, '')}}).concat(userTplLists).map(item => item.name))
-      console.log('  当前可用官方模板:')
+      console.log(`  当前可用官方模板${isOffline ? '[离线]' : ''}:`)
       console.log()
       officeTplLists.forEach(repo => {
         // CLI 方式调用，则打印可用模板
