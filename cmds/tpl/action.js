@@ -15,6 +15,10 @@ module.exports = async function (subcmd, name, url) {
     })
     fs.writeFileSync(userTemplatesPaths, JSON.stringify([]))
   }
+  if(!subcmd || !['list', 'get', 'set', 'delete'].includes(subcmd)) {
+    logger.fatal('不可用的子命令', subcmd)
+    return
+  }
   if (subcmd === 'add') {
     if(!name || !url) {
       logger.fatal('必须填写模板名称和url，URL可以是github仓库短名称')
@@ -61,6 +65,7 @@ module.exports = async function (subcmd, name, url) {
     let userTplLists = await nodeUtil.promisify(readMeta)(userTemplatesPaths)
     printAll(userTplLists)
   }
+
 }
 
 
