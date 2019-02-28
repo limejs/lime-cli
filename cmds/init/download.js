@@ -29,16 +29,14 @@ async function downloadTpl(templateName, isClone) {
   if (fs.existsSync(tmpTpl)) rm(tmpTpl)
   try {
     let pdownload = utils.promisify(download)
-    await pdownload(templateName, tmpTpl, {
-      isClone: Boolean(isClone)
-    })
-    return tmpTpl
+    await pdownload(templateName, tmpTpl)
   }
   catch(err) {
     console.log()
     console.log()
     logger.fatal('模板下载失败 ' + templateName + ' 原因:' + err.message)
+    process.exit(1)
   }
   spinner.stop()
-  process.exit(1)
+  return tmpTpl
 }
