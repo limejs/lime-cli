@@ -38,7 +38,7 @@ lime plugin # 管理 lime 项目插件 *尚未支持*
 
 目前官方提供的项目样板有:
 
-* [[BASIC](https://github.com/limejs/lime-template-basic) 基于 [LIME.JS](//github.com/limejs/lime) 的项目基础项目模板，包含可选的基础 MVC 模块 [适合简单 demo]
+* [[BASIC](https://github.com/limejs/lime-template-basic) 基于 [LIME.JS](//github.com/limejs/lime) 的项目基础项目模板，包含可选的基础 MVC 模块
 * [[REST](https://github.com/limejs/lime-template-api)] 一个完善的 API 开发骨架，在基础模板之上，增强了 REST API 项目开发的能力，去除了不必要的视图层。[适合 restful api 项目]
 * [[SPA](https://github.com/limejs/lime-template-spa)] 经典的基于 [Vue.js](https://cn.vuejs.org/) 的前后端分离的单页应用；分离开发，聚合部署 [适合内网管理端或没有SEO要求的外网产品]
 * [[SSR](https://github.com/limejs/lime-template-ssr)] 基于 [Vue.js](https://cn.vuejs.org/) + [SSR](https://ssr.vuejs.org) 实现的完善的项目模板，支持开发环境热替换和生产环境的编译、部署 [适合对性能和SEO有要求的外网产品]
