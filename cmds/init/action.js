@@ -14,16 +14,10 @@ const readMeta = require('read-metadata')
 const limeUserDir = path.join(home, '.lime-cli')
 
 module.exports = async function(folderName, cmd) {
-  // if (!Object.keys(templates).includes(templateName)) {
-  //   util.printError(`模板 { ${templateName} } 不存在`)
-  //   cmd.outputHelp()
-  //   process.exit(1)
-  // }
   // 装逼式写法
   let inPlace = !folderName || folderName === '.' // 是否创建在当前目录
   inPlace && (folderName = path.relative('../', process.cwd())) // 当前目录的名字。小api技巧获取当前目录的名字
   let projectDir = inPlace ? process.cwd() : path.resolve(folderName) // 项目要创建的目标目录位置
-
   // 判断项目名是否已经存在, 风险提示
   if (fs.existsSync(projectDir)) {
     let files = fs.readdirSync(projectDir)
@@ -40,6 +34,9 @@ module.exports = async function(folderName, cmd) {
           continueInit()
         }
       })
+    }
+    else {
+      continueInit()
     }
   }
   else {
@@ -78,18 +75,13 @@ module.exports = async function(folderName, cmd) {
         choices: tplLists.map(tpl => {
           return {
             name: tpl.desc || tpl.name, // 看到的
-            value: tpl.name,
+            value: tpl.url,
           }
         })
       }
     ]
     let answers = await inquirer.prompt(prompt)
 
-    if (!tplLists.some(tpl => tpl.name === answers.templateName)) {
-      util.printError(`模板 { ${answers.templateName} } 不存在`)
-      process.exit(1)
-    }
-    
     // folderName: 项目创建位置的目录文件夹名称，projectDir 项目输出位置的绝对路径； templateName: 用户选定或输入的模板名；inPlace是否是在当前所在目录。
     // 生成项目
     await generate(folderName, projectDir, answers.templateName)

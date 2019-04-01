@@ -24,7 +24,7 @@ catch(err) {
 }
 
 // 注册用户自定义子命令
-const selfCmdDir = config.get('self_cmd_dir') || 'lime-cmd'
+const selfCmdDir = config.get('self_cmd_dir') || 'cmds'
 const userCmdPath = path.resolve(process.cwd(), selfCmdDir)
 try {
   const files = fs.readdirSync(userCmdPath)

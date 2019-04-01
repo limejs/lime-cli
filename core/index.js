@@ -29,6 +29,11 @@ function registerCommand(options) {
     throw new Error(`options缺少或缺失必填的 command(${options.command}), action${options.action} 字段`)
   }
   let cmd = commander.command(options.command)
+  if(options.alias && Array.isArray(options.alias)){
+    options.alias.forEach(function(_alias){
+      commander.alias(_alias);
+    })
+  }
   cmd.usage(options.usage)
   cmd.description(options.description)
   cmd.on('--help', options.help || (() => {}))

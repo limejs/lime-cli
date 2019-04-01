@@ -1,6 +1,6 @@
 {
   "name": "@limejs/cli",
-  "version": "1.0.4",
+  "version": "1.1.4",
   "description": "Simple CLI for scaffolding lime projects",
   "main": "index.js",
   "bin": {
@@ -20,6 +20,13 @@
     "cli",
     "frontend"
   ],
+  "files": [
+    "index.js",
+    "lib",
+    "core",
+    "cmds",
+    "bin"
+  ],
   "author": "sheldoncui",
   "license": "MIT",
   "bugs": {
@@ -28,7 +35,6 @@
   "homepage": "https://github.com/limejs/lime-cli#readme",
   "dependencies": {
     "async": "^2.6.2",
-    "axios": "^0.18.0",
     "boxen": "^3.0.0",
     "chalk": "^2.4.2",
     "cli-table": "^0.3.1",
@@ -39,6 +45,7 @@
     "consolidate": "^0.15.1",
     "debug": "^4.1.0",
     "download-git-repo": "^1.0.1",
+    "git-url-parse": "^11.1.2",
     "handlebars": "^4.1.0",
     "inquirer": "^6.2.2",
     "metalsmith": "^2.3.0",
@@ -46,6 +53,7 @@
     "opn": "^5.4.0",
     "ora": "^3.1.0",
     "read-metadata": "^1.0.0",
+    "request": "^2.88.0",
     "shelljs": "^0.7.8",
     "user-home": "^2.0.0",
     "yargs": "^9.0.1"
